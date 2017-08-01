@@ -1,0 +1,17 @@
+.darkBG  {
+	background: #f6f6f6;
+}
+
+.green {
+	background: #e6e6e6;
+}
+
+.body {
+    height: 100%;
+    background: #e6e6e6;
+	margin: 0px;
+}
+
+.div{
+  height : 100vh;
+}
