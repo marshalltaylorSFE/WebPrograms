@@ -1,0 +1,150 @@
+/* Starter CSS by Mike Cherim - http://green-beast.com */
+
+* {
+}
+
+body {
+	/*font-family: "Times New Roman", Times, serif;
+	font-size: 30pt;
+	color:red;*/
+}  
+
+.sideBarStyle {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 12pt;
+	color:red;
+	list-style-type: none;
+}
+
+ul.testlist{
+	font-family: "Times New Roman", Times, serif;
+	font-size: 10pt;
+    list-style-type: none;
+    margin: 0px;
+    margin-left: 4px;
+    padding: 00px;
+    padding-left: 4px
+}
+
+#wrapper {
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+p {
+}
+
+a {
+}
+
+a:hover, a:focus, a:active {
+}
+
+a:focus, a:active {
+}
+
+img, a img {
+}
+
+small {
+}
+
+abbr, acronym {
+}
+
+blockquote {
+}
+
+cite {
+}
+
+em {
+}
+
+strong {
+}
+
+form {
+}
+
+fieldset {
+}
+
+legend {
+}
+
+label {
+}
+
+input {
+}
+
+select {
+}
+
+option {
+}
+
+textarea {
+}
+
+input:focus, select:focus, option:focus, textarea:focus {
+}
+
+#header {
+}
+
+#content {
+}
+
+#sidebar {
+}
+
+#navigation {
+}
+
+#footer {
+}
+
+.bold {
+}
+
+.italic {
+}
+
+.hidden {
+}
+
+.offset {
+}
+
+.highlight {
+}
+
+.tiny {
+}
+
+.error {
+}
+
+.abbr {
+}
+
+.darkBG  {
+	background: #f6f6f6;
+}
+
+.green {
+	background: #e6e6e6;
+}
+
+.body {
+    height: 100%;
+    background: #e6e6e6;
+	margin: 0px;
+}
+
+.div{
+  height : 100vh;
+}
