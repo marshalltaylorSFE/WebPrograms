@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1 *ngIf="title">
+    Welcome to {{title}}!
+  </h1>
+  <img width="100" src="assets/engrthumb.png">
+</div>
+<div *ngIf="myData">
+	<ul class="heroes">
+	<li *ngFor="let thing of myData.files">
+		{{thing.name}}
+	</li>
+	</ul>
+	<div *ngFor="let thing of myData.files">
+	<hr>
+		<h2>{{thing.name}}</h2>
+		<div *ngFor="let innerThing of thing.functions">
+			{{innerThing.function}}
+			<div [innerHTML]="innerThing.description">
+			</div>
+	
+		</div>
+	</div>
+</div>
+
