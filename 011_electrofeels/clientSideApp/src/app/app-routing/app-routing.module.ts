@@ -3,14 +3,19 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ApiExplorerComponent } from '../api-explorer/api-explorer.component';
-import { InfoComponent } from '../info/info.component';
+import { HomeComponent } from '../home/home.component';
 import { ProgrammingInfoComponent } from '../programming-info/programming-info.component';
+import { BlogComponent } from '../blog/blog.component';
+import { BlogArchiveComponent } from '../blog-archive/blog-archive.component';
+import { AboutComponent } from '../about/about.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/info', pathMatch: 'full' },
-  { path: 'info',  component: InfoComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home',  component: HomeComponent },
+  { path: 'blog',  component: BlogComponent },
   { path: 'apiexplorer', component: ApiExplorerComponent },
   { path: 'programminginfo', component: ProgrammingInfoComponent },
+  { path: 'about',  component: AboutComponent },
 ];
 
 @NgModule({
