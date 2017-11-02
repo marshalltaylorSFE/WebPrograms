@@ -1,4 +1,4 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Directive, Component, OnInit, ApplicationRef, Input } from '@angular/core';
 import { ApiDataService } from '../api-data.service';
 import { Index, IndexElement, Data, DataElement } from '../source-data-types';
 import { DataBodyElement } from '../explorer-data-types';
@@ -10,16 +10,17 @@ import { DataBodyElement } from '../explorer-data-types';
   styleUrls: ['./api-explorer.component.css'],
   providers: [ApiDataService]
 })
+
 export class ApiExplorerComponent implements OnInit {
   _index: Index;
   _data: Data[];
   _dataBody: DataBodyElement[] = [];
   loaded: boolean = false;
+  @Input() tocSrc: string;
   constructor( 
 	private apiDataService: ApiDataService,
 	private applicationRef: ApplicationRef
 	){}
-
   async ngOnInit() {
 	//By example, this should seem to work:
 //	this.apiDataService.getIndex().then(retIndex => {
@@ -29,7 +30,7 @@ export class ApiExplorerComponent implements OnInit {
 //	});
 
 	//But it doesn't pause the code, this seems to work better
-	this._index = await this.apiDataService.getIndex();
+	this._index = await this.apiDataService.getIndex(this.tocSrc);
 	console.log(this._index);
 
 	this.apiDataService.getData(this._index).then(retData =>
@@ -94,6 +95,4 @@ export class ApiExplorerComponent implements OnInit {
 		  }
 	  }
   }
-  
-
 }

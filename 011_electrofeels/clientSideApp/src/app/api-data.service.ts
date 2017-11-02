@@ -7,14 +7,14 @@ import { HttpClient } from '@angular/common/http';
 export class ApiDataService {
   constructor(private http: HttpClient) { }
   
-  async getIndex(): Promise<Index> {
+  async getIndex( src: string ): Promise<Index> {
 	return new Promise<Index>(resolve => {
 		let tempIndex: Index = new Index;
 		tempIndex.indexElements = [];
 		let resIndex: any;
 		let tempIndexElement: IndexElement;
 //  	  console.log("Getting json for index.");
-		this.http.get('assets/carIndex.json').subscribe(data => {
+		this.http.get(src).subscribe(data => {
 			resIndex = data;
 			for (let file of resIndex.files) {
 				tempIndexElement = new IndexElement;
