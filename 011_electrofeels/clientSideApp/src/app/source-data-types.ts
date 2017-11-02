@@ -1,6 +1,8 @@
 export class IndexElement {
 	name: string = 'placeholder';
-	path: string = 'path';
+//	fileIndex: number;
+//	subIndex: number;
+//	path: string;
 	subElements: IndexElement[];
 	expandable: boolean = false;
 	expanded: boolean = false;
@@ -8,7 +10,6 @@ export class IndexElement {
 
 export class Index {
 	indexElements: IndexElement[];
-	debugString: string = 'buggy';
 }
 
 export class DataElement {

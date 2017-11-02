@@ -4,7 +4,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
-import { ApiExplorerComponent } from './api-explorer/api-explorer.component';
 import { ExplorerComponent } from './explorer/explorer.component';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -22,7 +21,6 @@ import { LibrariesComponent } from './libraries/libraries.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    ApiExplorerComponent,
     ProgrammingInfoComponent,
     BlogComponent,
     BlogArchiveComponent,
