@@ -1,32 +1,29 @@
-<!--p>
-  Received: {{tocSrc}}
-</p-->
-<div _ngcontent-c0 class="container-fluid fullHeight">
-<div _ngcontent-c0 class="row fullHeight">
-<div _ngcontent-c0 class="col-md-2 col-sm-3 yellow sidenav">
+<div class="container-fluid fullHeight">
+<div class="row fullHeight">
+<div class="col-md-2 col-sm-3 purple sidenav no-padding">
   <ul class="twistylist">
     <div *ngFor="let thing of index.indexElements"> 
-		<li class="clickable">
-			<span *ngIf="thing.expandable" (click)="twist(thing); buildBody(thing)" [class.selected]="thing.topicRef == selectedTopic">
-				<img *ngIf="thing.expanded==true" src="../assets/twistyD.png" alt="" height="14" width="14">
-				<img *ngIf="thing.expanded==false" src="../assets/twistyR.png" alt="" height="14" width="14">
+		<li class="clickable" [class.selected]="thing.topicRef == selectedTopic">
+			<span *ngIf="thing.expandable" (click)="twist(thing); buildBody(thing)" class="item">
+				<img *ngIf="thing.expanded==true" class="list-align" src="../assets/twistyD.png" alt="" height="14" width="14">
+				<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
 			</span>
-			<span (click)="buildBody(thing)" [class.selected]="thing.topicRef == selectedTopic">{{thing.name}}</span>
-			<div *ngIf="thing.expanded==true">
-				<ul *ngFor="let thing of thing.subElements" class="twistylist subitem"> 
-					<li class="clickable">
-						<span *ngIf="thing.expandable" (click)="twist(thing); buildBody(thing)" [class.selected]="thing.sectionRef == selectedSection && thing.topicRef == selectedTopic">
-							<img *ngIf="thing.expanded==true" src="../assets/twistyD.png" alt="" height="14" width="14">
-							<img *ngIf="thing.expanded==false" src="../assets/twistyR.png" alt="" height="14" width="14">
-						</span>
-						<span (click)="buildBody(thing)" [class.selected]="thing.sectionRef == selectedSection && thing.topicRef == selectedTopic">{{thing.name}}</span>
-					</li>
-					<ul *ngIf="thing.expandable && thing.expanded" class="twistylist subitem">
-						<li *ngFor="let subthing of thing.subElements" class="subitem">{{subthing.name}}</li>
-					</ul>
-				</ul>
-			</div>
+			<span (click)="buildBody(thing)">{{thing.name}}</span>
 		</li>
+		<div *ngIf="thing.expanded==true">
+			<div *ngFor="let thing of thing.subElements" class="subitem"> 
+				<li class="clickable" [class.selected]="thing.sectionRef == selectedSection && thing.topicRef == selectedTopic">
+					<span *ngIf="thing.expandable" (click)="twist(thing); buildBody(thing)" class="item">
+						<img *ngIf="thing.expanded==true" class="list-align" src="../assets/twistyD.png" alt="" height="14" width="14">
+						<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
+					</span>
+					<span (click)="buildBody(thing)" class="item">{{thing.name}}</span>
+				</li>
+				<div *ngIf="thing.expandable && thing.expanded" class="subsubitem">
+					<li *ngFor="let subthing of thing.subElements" class="item">{{subthing.name}}</li>
+				</div>
+			</div>
+		</div>
 	</div>
   </ul>
 </div>
