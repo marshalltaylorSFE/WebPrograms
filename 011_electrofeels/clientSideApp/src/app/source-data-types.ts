@@ -1,8 +1,7 @@
 export class IndexElement {
 	name: string = 'placeholder';
-//	fileIndex: number;
-//	subIndex: number;
-//	path: string;
+	topicRef: number;
+	sectionRef: number;
 	subElements: IndexElement[];
 	expandable: boolean = false;
 	expanded: boolean = false;

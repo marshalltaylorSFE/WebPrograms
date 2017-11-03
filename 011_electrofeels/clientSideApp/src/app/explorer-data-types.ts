@@ -1,4 +1,5 @@
 export class DataBodyElement {
+	data: string;
 	entry: string;
 }
 

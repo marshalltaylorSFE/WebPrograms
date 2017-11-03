@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExplorerComponent } from '../explorer/explorer.component';
 
 @Component({
   selector: 'app-projects',
