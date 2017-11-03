@@ -1,0 +1,12 @@
+div.topleft {
+    position: absolute;
+} 
+
+.rightButton {
+	position: absolute;
+    right: 10px;
+}
+
+textarea {
+	width: 100%;
+}

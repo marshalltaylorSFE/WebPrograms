@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
 
@@ -16,6 +17,7 @@ import { BlogArchiveComponent } from './blog-archive/blog-archive.component';
 import { AboutComponent } from './about/about.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { LibrariesComponent } from './libraries/libraries.component';
+import { BlogEntryComponent } from './blog-entry/blog-entry.component';
 
 @NgModule({
   declarations: [
@@ -28,12 +30,14 @@ import { LibrariesComponent } from './libraries/libraries.component';
     ProjectsComponent,
     LibrariesComponent,
     ExplorerComponent,
+    BlogEntryComponent,
   ],
   imports: [
     BrowserModule,
 	AppRoutingModule,
 	NgbModule.forRoot(),
-	HttpClientModule
+	HttpClientModule,
+	FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
