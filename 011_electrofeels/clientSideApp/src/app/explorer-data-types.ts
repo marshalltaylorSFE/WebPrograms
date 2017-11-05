@@ -1,16 +1,11 @@
-export class DataBodyElement {
-	data: string;
-	entry: string;
-}
-
-//New data types
+//Types specific to the explorer component.
 export class Directory {
 	paths: string[];
 }
 
 export class Entry {
 	entry: string;
-	data: string;
+	data: string[];
 }
 
 export class Section {

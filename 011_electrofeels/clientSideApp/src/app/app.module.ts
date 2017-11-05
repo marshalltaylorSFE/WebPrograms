@@ -18,6 +18,7 @@ import { AboutComponent } from './about/about.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { LibrariesComponent } from './libraries/libraries.component';
 import { BlogEntryComponent } from './blog-entry/blog-entry.component';
+import { ExplorerEntryComponent } from './explorer-entry/explorer-entry.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BlogEntryComponent } from './blog-entry/blog-entry.component';
     LibrariesComponent,
     ExplorerComponent,
     BlogEntryComponent,
+    ExplorerEntryComponent,
   ],
   imports: [
     BrowserModule,

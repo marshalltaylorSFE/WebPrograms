@@ -1,7 +1,8 @@
-import { Component, OnInit, ApplicationRef, Input} from '@angular/core';
+import { Component, OnInit, ApplicationRef, Input, Output } from '@angular/core';
 import { ExplorerService } from '../explorer.service';
-import { Directory, File, DataBodyElement } from '../explorer-data-types';
+import { Directory, File, Section, Entry } from '../explorer-data-types';
 import { Index, IndexElement, Data, DataElement } from '../source-data-types';
+import { ExplorerEntryComponent } from '../explorer-entry/explorer-entry.component';
 
 @Component({
   selector: 'app-explorer',
@@ -14,9 +15,12 @@ export class ExplorerComponent implements OnInit {
   directory: Directory;
   files: File[] = [];
   index: Index = new Index;
-  dataBody: DataBodyElement[] = [];
+  displayTopic: string;
+  displaySection: string;
+  displayData: Entry[] = [];
   selectedTopic: number = 0;
   selectedSection: number = 0;
+  editing: boolean = false;
   
   constructor( 
 	private explorerService: ExplorerService,
@@ -31,6 +35,8 @@ export class ExplorerComponent implements OnInit {
 	console.log(this.files);
 	
 	this.buildIndex();
+	
+	this.buildBody(this.index.indexElements[0].subElements[0]);
 	//console.log(this.index);
 
 	//this.explorerService.getFiles(this.directory).then(_directory =>
@@ -74,42 +80,117 @@ export class ExplorerComponent implements OnInit {
 	}
   }
   
-	//twist( inputPath: string ){
-	//  for( let item of this.index.indexElements )
-	//  {
-	//	  if( inputPath == item.name ){
-	//		  if(item.expanded){
-	//			  item.expanded = false;
-	//		  } else {
-	//			  item.expanded = true;
-	//		  }
-	//		  console.log( item.name );
-	//		  this.applicationRef.tick();
-	//	  }
-	//  }
-	//}
-	
-	twist( inputElement: IndexElement ){
-		if( inputElement.expanded ){
-			inputElement.expanded = false;
-		} else {
-			if( inputElement.expandable ) inputElement.expanded = true;
-		}
+	expand( inputElement: IndexElement ){
+		if( inputElement.expandable ) inputElement.expanded = true;
+		this.applicationRef.tick();
+	}
+
+	contract( inputElement: IndexElement ){
+		inputElement.expanded = false;
 		this.applicationRef.tick();
 	}
 	
+	twist( inputElement: IndexElement ){
+		if( inputElement.expanded ){
+			this.contract( inputElement );
+		} else {
+			this.expand( inputElement );
+		}
+	}
+	
+	createNewFile(){
+		//Build new index
+		let _topicElement: IndexElement = new IndexElement; //create new section
+		_topicElement.name = "New Topic";
+		_topicElement.topicRef = this.files.length;
+		_topicElement.sectionRef = 0;
+		_topicElement.subElements = [];
+		_topicElement.expandable = true;
+		_topicElement.expanded = true;
+		this.index.indexElements.push(_topicElement);
+		//Create file
+		let _file: File = new File;
+		_file.name = "newname.json";
+		_file.topic = "New Topic";
+		_file.sections = [];
+		this.files.push(_file);
+		this.createNewSection(_topicElement);
+		console.log(this.index);
+
+	}
+
+	createNewSection( inputElement: IndexElement ){
+		//Build new index
+		let _sectionElement: IndexElement = new IndexElement; //create new section
+		_sectionElement.name = "New Section";
+		_sectionElement.topicRef = inputElement.topicRef;
+		_sectionElement.subElements = [];
+		let _newSectionRef: number = inputElement.subElements.push(_sectionElement); //push sections to topic
+		_newSectionRef--;
+		inputElement.subElements[_newSectionRef].sectionRef = _newSectionRef;
+		//expand files to include new entry
+		let _fileSection = new Section;
+		_fileSection.section = "New Section";
+		_fileSection.entries = [];
+		this.files[inputElement.topicRef].sections.push(_fileSection);
+		this.createNewEntry( inputElement.subElements[inputElement.subElements.length - 1] );
+		//open twisty
+		this.expand( inputElement );
+	}
+	
+	createNewEntry( inputElement: IndexElement ){
+		//Build new index
+		let _entryElement: IndexElement = new IndexElement; //create new entry
+		_entryElement.name = "New Entry";
+		_entryElement.expandable = false;
+		_entryElement.expanded = false;
+		inputElement.subElements.push(_entryElement); //push entry to section
+		inputElement.expandable = true;
+		inputElement.expanded = true;
+		//expand files to include new entry
+		let _fileEntry = new Entry;
+		_fileEntry.entry = "New Entry";
+		_fileEntry.data = [];
+		_fileEntry.data.push("New Data");
+		this.files[inputElement.topicRef].sections[inputElement.sectionRef].entries.push(_fileEntry);
+		//open twisty
+		this.buildBody( inputElement );
+		this.expand( inputElement );
+	}
+	
 	buildBody( inputElement: IndexElement ) {
-	  this.dataBody = [];
-	  let _dataBodyElement: DataBodyElement;
+	  this.displayData = [];
+	  let _displayEntry: Entry;
 	  //access the correct _data stuff
 	  this.selectedTopic = inputElement.topicRef;
 	  this.selectedSection = inputElement.sectionRef;
 	  for( let _item of this.files[inputElement.topicRef].sections[inputElement.sectionRef].entries ){
-		  _dataBodyElement = new DataBodyElement;
-		  _dataBodyElement.data = _item.data;
-		  _dataBodyElement.entry = _item.entry;
-		  this.dataBody.push(_dataBodyElement);
+		  _displayEntry = new Entry;
+		  _displayEntry.data = [];
+		  for( let _line of _item.data )
+		  {
+			  _displayEntry.data.push( _line );
+		  }
+		  _displayEntry.entry = _item.entry;
+		  this.displayData.push(_displayEntry);
 	  }
+	  this.displayTopic = this.files[inputElement.topicRef].topic;
+	  this.displaySection = this.files[inputElement.topicRef].sections[inputElement.sectionRef].section;
 	  this.applicationRef.tick();
 	}
+	
+  edit() {
+	  this.editing = true;
+	  this.applicationRef.tick();
+  }
+
+  save() {
+	  this.editing = false;
+	  this.files[this.selectedTopic].topic = this.displayTopic;
+	  this.files[this.selectedTopic].sections[this.selectedSection].section = this.displaySection;
+	  this.files[this.selectedTopic].sections[this.selectedSection].entries = [];
+	  this.files[this.selectedTopic].sections[this.selectedSection].entries = this.displayData;
+	  this.buildIndex();
+	  this.applicationRef.tick();
+  }
 }

@@ -9,6 +9,8 @@
 				<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
 			</span>
 			<span (click)="buildBody(thing)">{{thing.name}}</span>
+			<span (click)="createNewSection(thing)" class="glyphicon glyphicon-plus" style="font-size:10px;"></span>
+			<span class="glyphicon glyphicon-floppy-disk" style="font-size:12px;"></span>
 		</li>
 		<div *ngIf="thing.expanded==true">
 			<div *ngFor="let thing of thing.subElements" class="subitem"> 
@@ -18,6 +20,7 @@
 						<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
 					</span>
 					<span (click)="buildBody(thing)" class="item">{{thing.name}}</span>
+					<span (click)="createNewEntry(thing)" class="glyphicon glyphicon-plus" style="font-size:10px;"></span>
 				</li>
 				<div *ngIf="thing.expandable && thing.expanded" class="subsubitem">
 					<li *ngFor="let subthing of thing.subElements" class="item">{{subthing.name}}</li>
@@ -25,19 +28,27 @@
 			</div>
 		</div>
 	</div>
+	<span (click)="createNewFile()" class="glyphicon glyphicon-plus" style="font-size:10px;"></span>
   </ul>
 </div>
 <div class="col-md-10 col-sm-9 yellow">
-<div *ngFor="let thing of dataBody">
-	<h4>{{thing.entry}}</h4>
-	<div [innerHTML]="thing.data"></div>
-	<br>
+	<button (click)="edit()">Edit</button>
+	<button (click)="save()">Save</button>
+	<div *ngIf="editing">
+		<div class="row" style="padding:2px">
+			<span style="width:50px"><strong style="vertical-align: middle">Topic:</strong></span>
+			<span style="width:80%"><input style="width:80%" [(ngModel)]="displayTopic" placeholder="empty"/></span>	
+		</div>
+		<div class="row" style="padding:2px">
+			<span style="width:50px"><strong style="vertical-align: middle">Section:</strong></span>
+			<span style="width:80%"><input style="width:80%" [(ngModel)]="displaySection" placeholder="empty"/></span>	
+		</div>
+	</div>
+<div *ngFor="let thing of displayData">
+	<app-explorer-entry [entry]="thing" [editing]="editing"></app-explorer-entry>
 </div>
 </div>
 </div>
 <!--
-
-[class.selected]="hero === selectedHero"
-
-
--->
+	<app-explorer-entry #blast></app-explorer-entry>
+	-->

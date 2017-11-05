@@ -13,7 +13,7 @@ export class Index {
 
 export class DataElement {
 	name: string;
-	body: string;
+	body: string[];
 }
 
 export class Data {

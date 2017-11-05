@@ -7,11 +7,11 @@
       "entries": [
         {
           "entry": "Goal",
-          "data": "Goal information"
+          "data": ["Goal information"]
         },
         {
           "entry": "Background",
-          "data": "Background information"
+          "data": ["Background information"]
         }
       ]
     },
@@ -20,11 +20,11 @@
       "entries": [
         {
           "entry": "Parts",
-          "data": "Part list"
+          "data": ["Part list"]
         },
         {
           "entry": "Assembly",
-          "data": "Assembly information"
+          "data": ["Assembly information"]
         }
       ]
     },
@@ -33,11 +33,11 @@
       "entries": [
         {
           "entry": "Constructor",
-          "data": "How to construct"
+          "data": ["How to construct"]
         },
         {
           "entry": "someFunction",
-          "data": "How to use function."
+          "data": ["How to use function."]
         }
       ]
     }
