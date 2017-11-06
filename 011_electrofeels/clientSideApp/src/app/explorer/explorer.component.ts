@@ -179,12 +179,12 @@ export class ExplorerComponent implements OnInit {
 	  this.applicationRef.tick();
 	}
 	
-  edit() {
+  showEdit() {
 	  this.editing = true;
 	  this.applicationRef.tick();
   }
 
-  save() {
+  showView() {
 	  this.editing = false;
 	  this.files[this.selectedTopic].topic = this.displayTopic;
 	  this.files[this.selectedTopic].sections[this.selectedSection].section = this.displaySection;
@@ -193,4 +193,14 @@ export class ExplorerComponent implements OnInit {
 	  this.buildIndex();
 	  this.applicationRef.tick();
   }
+  
+  downloadFile( inputElement: IndexElement ){
+	this.showView();
+	var blob = new Blob([JSON.stringify(this.files[inputElement.topicRef])], { type: 'text/plain' });
+	var url= window.URL.createObjectURL(blob);
+	var wOR = window.open(url);
+    setTimeout(function(){
+        window.URL.revokeObjectURL(url);  
+    }, 2000);  
+}
 }
