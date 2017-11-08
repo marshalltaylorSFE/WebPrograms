@@ -1,10 +1,10 @@
 <div class="explorer-cell">
 	<div class="">
 		<span *ngIf="editing == false"> 
-			<h4>{{entry.entry}}</h4>
-			<div *ngFor="let line of entry.data">
-			<div [innerHTML]="line"></div>
+			<div class="stdInner">
+				<h1>{{entry.entry}}</h1>
 			</div>
+			<div class="stdInner" [innerHTML]="postString | safeHtml"></div>
 		</span>
 		<div *ngIf="editing == true" style="height:100%">
 			<div class="container-fluid fullHeight" style="width:100%">

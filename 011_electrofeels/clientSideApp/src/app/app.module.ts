@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 
@@ -20,6 +20,16 @@ import { LibrariesComponent } from './libraries/libraries.component';
 import { BlogEntryComponent } from './blog-entry/blog-entry.component';
 import { ExplorerEntryComponent } from './explorer-entry/explorer-entry.component';
 
+import { DomSanitizer } from '@angular/platform-browser'
+
+@Pipe({ name: 'safeHtml'})
+
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.bypassSecurityTrustHtml(value);
+  }
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +43,7 @@ import { ExplorerEntryComponent } from './explorer-entry/explorer-entry.componen
     ExplorerComponent,
     BlogEntryComponent,
     ExplorerEntryComponent,
+	SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,
