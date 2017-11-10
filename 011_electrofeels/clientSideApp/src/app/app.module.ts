@@ -20,7 +20,9 @@ import { LibrariesComponent } from './libraries/libraries.component';
 import { BlogEntryComponent } from './blog-entry/blog-entry.component';
 import { ExplorerEntryComponent } from './explorer-entry/explorer-entry.component';
 
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser';
+import { EditorExplorerComponent } from './editor-explorer/editor-explorer.component';
+import { EditorBlogComponent } from './editor-blog/editor-blog.component'
 
 @Pipe({ name: 'safeHtml'})
 
@@ -44,6 +46,8 @@ export class SafeHtmlPipe implements PipeTransform  {
     BlogEntryComponent,
     ExplorerEntryComponent,
 	SafeHtmlPipe,
+	EditorExplorerComponent,
+	EditorBlogComponent,
   ],
   imports: [
     BrowserModule,

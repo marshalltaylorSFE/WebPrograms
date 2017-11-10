@@ -9,6 +9,8 @@ import { ProjectsComponent } from '../projects/projects.component';
 import { LibrariesComponent } from '../libraries/libraries.component';
 import { ProgrammingInfoComponent } from '../programming-info/programming-info.component';
 import { AboutComponent } from '../about/about.component';
+import { EditorExplorerComponent } from '../editor-explorer/editor-explorer.component';
+import { EditorBlogComponent } from '../editor-blog/editor-blog.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'libraries', component: LibrariesComponent },
   { path: 'programminginfo', component: ProgrammingInfoComponent },
   { path: 'about',  component: AboutComponent },
+  { path: 'editorexplorer', component: EditorExplorerComponent },
+  { path: 'editorblog',  component: EditorBlogComponent },
 ];
 
 @NgModule({
