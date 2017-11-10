@@ -1,7 +1,7 @@
 <div class="container-fluid fullHeight">
 <div class="row fullHeight">
 <!-- the index pane -->
-<div class="col-md-2 col-sm-3 purple sidenav no-padding">
+<div class="col-md-2 col-sm-2 purple sidenav no-padding">
   <ul class="twistylist">
     <div *ngFor="let thing of index.indexElements"> 
 		<li class="clickable item" [class.selected]="thing.topicRef == selectedTopic">
@@ -50,7 +50,7 @@
 	</div>
 </div>
 <!-- the explorer pane -->
-<div class="col-md-10 col-sm-9 yellow">
+<div class="col-md-10 col-sm-10 yellow">
 	<div *ngIf="editing">
 		<div class="row" style="padding:2px">
 			<span style="width:50px"><strong style="vertical-align: middle">Topic:</strong></span>
