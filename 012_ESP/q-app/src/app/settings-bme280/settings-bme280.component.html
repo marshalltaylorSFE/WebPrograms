@@ -1,0 +1,25 @@
+<ul id="settingsList" (click)="toggle()">
+	<li>
+		<table>
+			<tr>
+				<td *ngIf="expanded"><img class="list-icon" src="/assets/twistyD.png"></td>
+				<td *ngIf="!expanded"><img class="list-icon" src="/assets/twistyR.png"></td>
+				<td style="vertical-align: center">BME280</td>
+			</tr>
+		</table>
+	</li>
+</ul>
+<div *ngIf="expanded" style="padding-left: 10px">
+<input type="checkbox">Enabled
+<hr>
+Record:<br>
+<input type="checkbox">Temperature<br>
+<div class="radioGroup">
+<form action="">
+  <input type="radio" name="temperatureScale" value="degC" checked="checked"> Celsius<br>
+  <input type="radio" name="temperatureScale" value="degK"> Kelvin<br>
+  <input type="radio" name="temperatureScale" value="degF"> Fahrenheit<br>
+</form>
+</div>
+<input type="checkbox">Humidity<br>
+</div>

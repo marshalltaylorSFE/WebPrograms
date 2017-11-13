@@ -1,0 +1,25 @@
+#getDataButton  {
+	
+}
+
+#viewContainer {
+	padding-top: 10px;
+	padding-right: 10px;
+	height: 100%;
+}
+
+#controlContainer {
+	text-align: center;
+	height: 100%;
+}
+
+#viewContent {
+    height: auto;
+    min-height: 300px;
+    max-height: 60%;
+    overflow: auto;
+    background-color: #eeeeee;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    white-space: pre !important;
+}

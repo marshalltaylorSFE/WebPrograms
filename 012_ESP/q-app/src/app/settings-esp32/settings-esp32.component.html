@@ -1,0 +1,15 @@
+<ul id="settingsList" (click)="toggle()">
+	<li>
+		<table>
+			<tr>
+				<td *ngIf="expanded"><img class="list-icon" src="/assets/twistyD.png"></td>
+				<td *ngIf="!expanded"><img class="list-icon" src="/assets/twistyR.png"></td>
+				<td style="vertical-align: center">Q-Blocks Settings</td>
+			</tr>
+		</table>
+	</li>
+</ul>
+<div *ngIf="expanded" style="padding-left: 10px">
+sample rate (seconds)
+<input>
+</div>
