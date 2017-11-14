@@ -19,6 +19,9 @@ export class BlogEntryComponent implements OnInit {
 	  this.getBody();
 	  this.editing = true;
   }
+
+  download() {
+  }
   
   save() {
 	  this.setBody();
@@ -36,5 +39,6 @@ export class BlogEntryComponent implements OnInit {
   
   setBody() {
 	  this.blogPost.body = this.postString.split("\n");
-  }
+ 	  if( this.blogPost.body[this.blogPost.body.length - 1] == "" ) this.blogPost.body.splice(this.blogPost.body.length - 1, 1);
+ }
 }

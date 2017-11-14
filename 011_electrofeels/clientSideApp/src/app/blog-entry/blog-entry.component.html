@@ -18,7 +18,11 @@
 				</div>
 			</div>
 		</div>
-		<span *ngIf="editing == false" class="rightButton" width="100%"><button (click)="edit()">Edit</button></span>
-		<span *ngIf="editing == true" class="rightButton" width="100%"><button (click)="save()">Save</button></span>
+		<div class="rightButton">
+			<span *ngIf="editing == false" (click)="edit()" style="font-size: 30px;" class="glyphicon glyphicon-pencil"></span>
+			<span *ngIf="editing == true" (click)="save()" style="font-size: 30px;" class="glyphicon glyphicon-arrow-left"></span>
+			<span *ngIf="editing == false" style="color: #dddddd; font-size: 30px;"  class="glyphicon glyphicon-new-window"></span>
+			<span *ngIf="editing == true" (click)="download()" style="font-size: 30px;"  class="glyphicon glyphicon-new-window"></span>
+		</div>
 	</div>
 </div>

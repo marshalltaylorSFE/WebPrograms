@@ -1,3 +1,21 @@
+<!--<div class="blog-cell">
+	<div class="">
+		<div class="rightButton">
+	
+	
+	hello-->
+<div class="topleft" (mousemove)="getMouse($event)">
+		<svg id="dateSelector" preserveAspectRatio="xMidYMid meet" viewBox="0 0 300 60">
+			<polygon fill="#eeeeee" points="0,0 300,0 300,60 0,60 0,0" />
+			<path stroke="black" stroke-width="4" fill="yellow" d="M10,50 290,50"/>
+			<svg [attr.x]="mousex" width="110" height="60">
+				<polygon stroke-width="1" stroke="red" fill="none" points="5,5 95,5 95,55 5,55 5,5" />
+			</svg>
+		</svg>
+		<h1>Debug Text</h1>
+</div>
+{{mousex}}
+{{mousey}}
 <div><app-blog-entry [blogPost]="post1"></app-blog-entry></div>
 <hr>
 <div><app-blog-entry [blogPost]="post2"></app-blog-entry></div>
@@ -6,6 +24,16 @@
 <hr>
 <div><app-blog-entry [blogPost]="post4"></app-blog-entry></div>
 <!--
+		<svg viewBox="0 0 250 250">
+  <polygon fill="red" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2" />
+  <polygon fill="green" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30" />
+  <path stroke="black" fill="yellow" d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1
+      L125,52.1z M142,135.4H108l17-40.9L142,135.4z"/>
+</svg>
+
+				<polygon stroke-width="1" stroke="red" fill="none" points="195,5 295,5 295,55 195,55 195,5" />
+
+
 <p>
   blog works!
 </p>
