@@ -1,0 +1,22 @@
+<div (mousemove)="getMouse($event)"
+				(mousedown)="onPress($event)"
+                (mouseup)="onRelease($event)"
+				(mouseenter) ="mouseEnter($event)"
+				(mouseleave) ="mouseLeave($event)"
+				class="topleft unselectable">
+		<svg id="dateSelector" preserveAspectRatio="xMidYMid meet" viewBox="0 0 300 60">
+			<polygon fill="#eeeeee" points="0,0 300,0 300,60 0,60 0,0" />
+			<path stroke="black" stroke-width="4" fill="yellow" d="M10,50 290,50"/>
+			<svg [attr.x]="xOffset" width="110" height="60">
+				<polygon stroke-width="1" stroke="red" fill="none" points="5,5 95,5 95,55 5,55 5,5" />
+			</svg>
+		</svg>
+</div>
+<div (mousemove)="getMouse($event)">
+<h1>Debug Text</h1>
+</div>
+{{xOffset}}
+{{mousex}}
+{{mousey}}
+{{dragging}}
+{{clicklockx}}

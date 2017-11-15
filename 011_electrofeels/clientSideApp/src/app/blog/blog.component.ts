@@ -2,6 +2,7 @@ import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { BlogPost } from '../blog-data-types';
 import { BlogEntryComponent } from '../blog-entry/blog-entry.component';
+import { BlogTimelineComponent } from '../blog-timeline/blog-timeline.component';
 
 @Component({
   selector: 'app-blog',
@@ -14,9 +15,6 @@ export class BlogComponent implements OnInit {
 	post2: BlogPost = new BlogPost;
 	post3: BlogPost = new BlogPost;
 	post4: BlogPost = new BlogPost;
-	pos: number = 100;
-	mousex: number;
-	mousey: number;
   constructor(
 	private blogService: BlogService,
 	private applicationRef: ApplicationRef
@@ -28,8 +26,5 @@ export class BlogComponent implements OnInit {
 	  this.post3 = this.blogService.createTestPost();
 	  this.post4 = this.blogService.createTestPost();
   }
-  getMouse(event) {
-	  this.mousex = event.clientX;
-	  this.mousey = event.clientY;
-  }
+
 }
