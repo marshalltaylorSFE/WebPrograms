@@ -1,0 +1,12 @@
+{
+  "seqNum": 0,
+  "status": {
+    "card": true,
+    "i2c": true,
+    "running": false
+  },
+  "console": [
+    "hello",
+    "world"
+    ]
+}

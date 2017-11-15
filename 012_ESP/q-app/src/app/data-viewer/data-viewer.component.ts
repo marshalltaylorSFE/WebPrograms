@@ -4,8 +4,7 @@ import { EspService } from '../esp.service';
 @Component({
   selector: 'app-data-viewer',
   templateUrl: './data-viewer.component.html',
-  styleUrls: ['./data-viewer.component.css'],
-  providers: [EspService]
+  styleUrls: ['./data-viewer.component.css']
 })
 export class DataViewerComponent implements OnInit {
 	collectedData: String = "";
@@ -18,7 +17,8 @@ export class DataViewerComponent implements OnInit {
   }
   
   async viewData() {
-	  this.collectedData = await this.espService.getFile();
+	  //this.collectedData = await this.espService.getFile();
+	  //this.applicationRef.tick();
   }
 
   async requestPath(_str: String ) {

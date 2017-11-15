@@ -4,10 +4,9 @@
 #include "DirectoryServer.h"
 #include "FS.h"
 #include "SD.h"
-#include "q-blocks-hardware.h"
 
-extern const int SD_CS_PIN;
-extern const int SD_INSERTED_PIN;
+#define SD_CS_PIN 5
+#define SD_CD_PIN 17
 
 void FilePath::requestHandler( void ){
 	Serial.println(path.c_str());
@@ -22,8 +21,8 @@ FileServer::FileServer( int port ) : ESPWebServer( port )
 int FileServer::mountCard( void )
 {
 	//Check for card presence using CD pin
-	pinMode(SD_INSERTED_PIN, INPUT_PULLUP);
-	if(digitalRead(SD_INSERTED_PIN) == 0) {
+	pinMode(SD_CD_PIN, INPUT_PULLUP);
+	if(digitalRead(SD_CD_PIN) == 0) {
 		Serial.println("Card detected");
 	} else {
 		Serial.println("Card not present");

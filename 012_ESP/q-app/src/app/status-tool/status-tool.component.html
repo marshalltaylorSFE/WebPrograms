@@ -1,0 +1,21 @@
+<div class="statusText">Status message: {{statusString}}</div>
+<table class="termHeight noEdge" [style.height]="ourHeight">
+	<tr class="noEdge">
+		<td id="consoleView" class="noEdge">
+		<textarea [(ngModel)]="espService.consoleLogStr" id="consoleBox" readonly [style.height]="ourHeight"></textarea>
+		</td>
+		<td id="consoleCtrls">
+			 <input (click)="expandChanged()" type="checkbox" [value]="expanded" checked/>
+			 <button (click)="getStatus()" style="width:10px; height:10px"> </button>
+
+		</td>
+	</tr>
+</table>
+<!--<button (click)="getStatus()" id="getDataButton">Review Data</button>
+<div *ngIf="consoleLog">
+	<div *ngFor="let line of consoleLog">
+		{{line}}
+	</div>
+				<input type="checkbox" name="expanded" [ngModel]="expanded">
+				<input [(ngModel)]="expanded" type="checkbox"><br>
+</div>-->

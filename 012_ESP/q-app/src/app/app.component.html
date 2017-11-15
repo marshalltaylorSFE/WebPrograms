@@ -9,6 +9,7 @@
 		</tr>
 		<tr>
 			<td id="leftPane">
+			<app-esp32-controller></app-esp32-controller>
 			<app-settings-container></app-settings-container>
 			</td>
 			<td id="rightPane">
@@ -19,17 +20,9 @@
 	</div>
 </div>
 <span class="terminalWindow">
-	<table class="termHeight">
-		<tr>
-			<td id="consoleView">
-			Status message: {{statusString}}
-			</td>
-			<td id="consoleCtrls">
-			
-			</td>
-		</tr>
-	</table>
-
+	<div style="text-align: left">
+		<app-status-tool></app-status-tool>
+	</div>
 </span>
 <!--
 
