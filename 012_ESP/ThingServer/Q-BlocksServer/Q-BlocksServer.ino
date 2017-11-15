@@ -53,6 +53,7 @@ const char* password = "sparkfun6333";
 
 QHardware qHardware;
 QStatus qStatus;
+QCommand qCommand;
 
 FileServer server(80);
 
@@ -83,6 +84,25 @@ void IRAM_ATTR onTimer(void)
 	qHardware.nextTick += 5;
 }
 
+void handleCommand() {
+	if (server.hasArg("plain")== false){ //Check if body received
+		Serial.printf("Command body not received\n");
+		server.send(200, "text/plain", "Body not received\n");
+		return;
+
+	}
+	server.send(200, "text/plain", "Body received!\n");
+	qCommand.jsonStr = server.arg("plain");
+	qCommand.parseJsonStr();
+    Serial.printf("Command received: %d\n", qCommand.command);
+}
+
+void handleStatus() {
+	qStatus.buildJsonStr();
+	server.send(200, "text/json", qStatus.jsonStr.c_str());
+    Serial.printf("Status requested.\n");
+}
+
 void setup() {
 	//Initialize LEDs and Pushbutton
 	//  pinMode(LOG_SWITCH_PIN,INPUT_PULLUP);
@@ -106,6 +126,8 @@ void setup() {
 	//  initializeI2C();
 	qStatus.buildJsonStr();
 	Serial.println(qStatus.jsonStr.c_str());
+	qCommand.parseJsonStr();
+	Serial.println(qCommand.command);
 	//Mount the SD card
 	if(server.mountCard()==-1)
 		{
@@ -133,8 +155,8 @@ void setup() {
 		Serial.println("MDNS responder started");
 	}
 	server.serveStatic("/datalog.csv", SD, "/datalog.csv", "no-cache, no-store, must-revalidate");
-	//server.on("/dev/clear", handleClear);
-	//server.on("/dev/start", handleStart);
+	server.on("/dev/status", handleStatus);
+	server.on("/dev/command", handleCommand);
 	//server.on("/dev/stop", handleStop);
 		
 	server.startServer();

@@ -1,0 +1,43 @@
+#consoleCtrls{
+	vertical-align: top;
+    width: 21px;
+    height:100%;
+    margin:0 auto;
+	background-color: #e2e2e2;
+}
+
+#consoleView{
+	vertical-align: top;
+	margin-right: 80px;
+	width: 500px;
+    height:100%;
+    margin:0 auto;
+	color: #00FF00;
+	background-color: #000000;
+}
+
+#consoleBox{
+	width: 490px;
+	height: 30px;
+	resize: none;
+	overflow-y: scroll;
+	background-color: #000000;
+	color: #00FF00;
+}
+
+.termHeight {
+	height:42px;
+}
+
+.statusText {
+	position: absolute;
+    top: 5px;
+    right: 70px;
+	font-size: 0.9em;
+	color: #00FF00;
+}
+
+.noEdge {
+	margin: 0 auto;
+	padding: 0;
+}

@@ -1,0 +1,10 @@
+<div>
+	<button (click)="espService.connect()" [disabled]="espService.connected || espService.connecting">Connect</button>
+	<button (click)="espService.disconnect()" [disabled]="!espService.connected">Disconnect</button>
+</div>
+<div>
+	<button (click)="espService.clear()" [disabled]="espService.running || !espService.connected">Clear</button>
+	<button (click)="espService.start()" [disabled]="espService.running || !espService.connected">Start</button>
+	<button (click)="espService.stop()" [disabled]="!espService.running || !espService.connected">Stop</button>
+	<button (click)="void" [disabled]="!espService.connected">View</button>
+</div>
