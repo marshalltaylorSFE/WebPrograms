@@ -17,7 +17,7 @@ ourHeight: string = "35px"
 expanded: boolean = false;
 
 	constructor(
-	private espService: EspService,
+	public espService: EspService,
 	private applicationRef: ApplicationRef
 	) { }
 

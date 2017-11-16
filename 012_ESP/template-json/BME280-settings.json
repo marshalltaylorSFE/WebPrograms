@@ -1,0 +1,7 @@
+{
+  "name": "BME280",
+  "celsiusEnabled": false,
+  "fahrenheitEnabled": false,
+  "pressureEnabled": false,
+  "humidityEnabled": false
+}

@@ -8,7 +8,7 @@ import { EspService } from '../esp.service';
 })
 export class Esp32ControllerComponent implements OnInit {
 
-  constructor(private espService: EspService) { }
+  constructor(public espService: EspService) { }
 
   ngOnInit() {
 	  this.espService.logAppMessage("Controller Started!");
