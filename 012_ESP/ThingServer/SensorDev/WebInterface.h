@@ -72,17 +72,17 @@ class SensorInterface
 {
 public:
 	//initialize
-	void initialize();
+	virtual void initialize() = 0;
 	//Check for existance and readiness
-	bool isGood();
+	virtual bool isGood() = 0;
 	//get settings
-	void buildJsonStr( void );
+	virtual void buildJsonStr( void ) = 0;
 	//put settings
-	void parseJsonStr( void );
+	virtual void parseJsonStr( void ) = 0;
 	//get header
-	void getHeader( String _header );
+	virtual void getHeader( String * _header ) = 0;
 	//get data
-	void getData( String _header );
+	virtual void getData( String * _header ) = 0;
 
 	//accessable json string
 	String jsonStr;

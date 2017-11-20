@@ -57,6 +57,7 @@ QCommand qCommand;
 
 FileServer server(80);
 
+volatile long int stateTick = 0;
 //void handleClear() {
 //	server.send(200, "text/plain", "Data cleared.");
 //    Serial.printf("Deleting file: %s\n", "/datalog.csv");
@@ -82,6 +83,7 @@ FileServer server(80);
 void IRAM_ATTR onTimer(void)
 {
 	qHardware.nextTick += 5;
+	stateTick += 5;
 }
 
 void handleCommand() {
@@ -101,6 +103,8 @@ void handleStatus() {
 	qStatus.buildJsonStr();
 	server.send(200, "text/json", qStatus.jsonStr.c_str());
     Serial.printf("Status requested.\n");
+	stateTick = 0;
+	qHardware.setLeds(green);
 }
 
 void setup() {
@@ -108,6 +112,7 @@ void setup() {
 	//  pinMode(LOG_SWITCH_PIN,INPUT_PULLUP);
 	//  pinMode(SD_INSERTED_PIN,INPUT_PULLUP);
 	qHardware.init();
+	qHardware.setLeds( red );
 
 	Wire.begin();       //Start I2C bus
 	Serial.begin(115200); //Start Serial debug
@@ -160,11 +165,16 @@ void setup() {
 	//server.on("/dev/stop", handleStop);
 		
 	server.startServer();
+	qHardware.setLeds( yellow );
 }
 
 void loop() {
 	server.handleClient();
 	qHardware.tick();
+	if(stateTick > 15000)
+	{
+		qHardware.setLeds(yellow);
+	}
 	
 	//	if(logData){
 	//	checkCard();

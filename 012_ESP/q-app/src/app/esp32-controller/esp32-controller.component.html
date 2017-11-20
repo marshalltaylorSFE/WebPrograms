@@ -6,5 +6,5 @@
 	<button (click)="espService.clear()" [disabled]="espService.running || !espService.connected">Clear</button>
 	<button (click)="espService.start()" [disabled]="espService.running || !espService.connected">Start</button>
 	<button (click)="espService.stop()" [disabled]="!espService.running || !espService.connected">Stop</button>
-	<button (click)="void" [disabled]="!espService.connected">View</button>
+	<button [disabled]="!espService.connected">View</button>
 </div>
