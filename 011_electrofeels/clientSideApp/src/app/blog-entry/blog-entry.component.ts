@@ -4,11 +4,14 @@ import { BlogPost } from '../blog-data-types';
 @Component({
   selector: 'app-blog-entry',
   templateUrl: './blog-entry.component.html',
-  styleUrls: ['./blog-entry.component.css']
+  styleUrls: ['./blog-entry.component.css',
+  '../standard.css'
+  ]
 })
 export class BlogEntryComponent implements OnInit {
   @Input() blogPost: BlogPost;
   editing: boolean = false;
+  @Input() editable: boolean = false;
   postString: string;
   constructor() { }
 
@@ -20,12 +23,20 @@ export class BlogEntryComponent implements OnInit {
 	  this.editing = true;
   }
 
-  download() {
-  }
-  
+	downloadFile(){
+		this.setBody();
+		var blob = new Blob([JSON.stringify(this.blogPost)], { type: 'text/plain' });
+		var url= window.URL.createObjectURL(blob);
+		var wOR = window.open(url);
+		setTimeout(function(){
+			window.URL.revokeObjectURL(url);  
+		}, 2000);  
+	}
+	
   save() {
 	  this.setBody();
-	  this.blogPost.date = new Date();
+	  this.blogPost.date = new Date(this.blogPost.date);
+	  console.log(this.blogPost.date);
 	  this.editing = false;
   }
 

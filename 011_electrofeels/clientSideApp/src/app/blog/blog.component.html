@@ -5,13 +5,10 @@
 	
 	hello-->
 <app-blog-timeline></app-blog-timeline>
-<div><app-blog-entry [blogPost]="post1"></app-blog-entry></div>
-<hr>
-<div><app-blog-entry [blogPost]="post2"></app-blog-entry></div>
-<hr>
-<div><app-blog-entry [blogPost]="post3"></app-blog-entry></div>
-<hr>
-<div><app-blog-entry [blogPost]="post4"></app-blog-entry></div>
+<div *ngFor="let post of posts">
+	<div><app-blog-entry [blogPost]="post" [editable]="false"></app-blog-entry></div>
+	<hr>
+</div>
 <!--
 		<svg viewBox="0 0 250 250">
   <polygon fill="red" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2" />

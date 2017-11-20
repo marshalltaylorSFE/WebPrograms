@@ -1,28 +1,36 @@
-<div class="blog-cell">
-	<div class="">
-		<span *ngIf="editing == false"> 
-			<h3>{{blogPost.title}}</h3>
-			<i>{{blogPost.date}}</i>
+<div class="container blog-entry-container" style="width:100%">
+	<div class="row">
+		<div *ngIf="editing == false" class="col stdInner">
+			<h1>{{blogPost.title}}</h1>
+			<i style="padding-left: 20px">{{blogPost.date}}</i>
 			<div *ngFor="let line of blogPost.body">
-			<div [innerHTML]="line"></div>
-			</div>
-		</span>
-		<div *ngIf="editing == true" style="height:100%">
-			<div class="container-fluid fullHeight" style="width:100%">
-				<div class="row" style="padding:2px">
-					<span style="width:50px"><strong style="vertical-align: middle">Title:</strong></span>
-					<span style="width:80%"><input style="width:80%" [(ngModel)]="blogPost.title" placeholder="empty"/></span>
-				</div>
-				<div class="row" style="height:50%">
-					<textarea [(ngModel)]="postString" style="height:100%"></textarea>
-				</div>
+			<div [innerHTML]="line | safeHtml"></div>
 			</div>
 		</div>
-		<div class="rightButton">
+		<div *ngIf="editing == true" class="col edit-height" style="width:100%">
+			<table style="width:100%">
+				<tr>
+					<td style="width:100px"><strong style="vertical-align: center">Title:</strong></td>
+					<td><input style="width:100%" [(ngModel)]="blogPost.title" placeholder="empty"/></td>
+				</tr>
+				<tr>
+					<td>
+						Date:
+					</td>
+					<td>
+						<input type="Date" [(ngModel)]="blogPost.date">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-top:10px"><textarea class="edit-body" [(ngModel)]="postString"></textarea></td>
+				</tr>
+			</table>
+		</div>
+		<div *ngIf="editable" class="rightButton">
 			<span *ngIf="editing == false" (click)="edit()" style="font-size: 30px;" class="glyphicon glyphicon-pencil"></span>
 			<span *ngIf="editing == true" (click)="save()" style="font-size: 30px;" class="glyphicon glyphicon-arrow-left"></span>
 			<span *ngIf="editing == false" style="color: #dddddd; font-size: 30px;"  class="glyphicon glyphicon-new-window"></span>
-			<span *ngIf="editing == true" (click)="download()" style="font-size: 30px;"  class="glyphicon glyphicon-new-window"></span>
+			<span *ngIf="editing == true" (click)="downloadFile()" style="font-size: 30px;"  class="glyphicon glyphicon-new-window"></span>
 		</div>
 	</div>
 </div>

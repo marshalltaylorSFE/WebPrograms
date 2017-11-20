@@ -1,1 +1,8 @@
-<div><app-blog-entry [blogPost]="editingData"></app-blog-entry></div>
+<table style="width:100%">
+	<tr>
+		<td style="width:60px"><button (click)="loadPost()">Load</button></td>
+		<td style="width:40px">path:</td>
+		<td><input style="width:100%" [(ngModel)]="sourcePost" placeholder="empty"/></td>
+	</tr>
+</table>
+<app-blog-entry [blogPost]="editingData" [editable]="true"></app-blog-entry>

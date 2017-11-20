@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "file": "post001.json",
+      "date": "2017-1-17T05:34:50.454Z"
+    },
+    {
+      "file": "junkpost.json",
+      "date": "2017-11-17T05:34:50.454Z"
+    },
+    {
+      "file": "junkpost.json",
+      "date": "2017-8-17T05:34:50.454Z"
+    }
+  ]
+}

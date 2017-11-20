@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { ExplorerComponent } from '../explorer/explorer.component';
 
 @Component({
@@ -7,10 +7,15 @@ import { ExplorerComponent } from '../explorer/explorer.component';
   styleUrls: ['./editor-explorer.component.css']
 })
 export class EditorExplorerComponent implements OnInit {
-
-  constructor() { }
+  sourceIndex: string = "explorer-generic/directory.json";
+  newIndex: string = "explorer-generic/directory.json";
+  constructor(private applicationRef: ApplicationRef) { }
 
   ngOnInit() {
+  }
+  
+  loadIndex() {
+	  this.sourceIndex = this.newIndex;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ApplicationRef, Input, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, ApplicationRef, Input, Output, ViewChild } from '@angular/core';
 import { ExplorerService } from '../explorer.service';
 import { FileCreatorService } from '../file-creator.service';
 import { Directory, ExpFile, Section, Entry } from '../explorer-data-types';
@@ -13,7 +13,7 @@ import { ExplorerEntryComponent } from '../explorer-entry/explorer-entry.compone
 	FileCreatorService
 	]
 })
-export class ExplorerComponent implements OnInit {
+export class ExplorerComponent implements OnInit, OnChanges {
 	@ViewChild('selectedFile') selectedFileEl;
 	@Input() tocSrc: string;
 	@Input() editable: boolean = false;
@@ -51,8 +51,16 @@ export class ExplorerComponent implements OnInit {
 		//{
 		//	console.log(_directory);
 		//});
+
 	}
 
+	async ngOnChanges() {
+		this.directory = await this.explorerService.getDirectory(this.tocSrc);
+		this.files = await this.explorerService.getFiles(this.directory);
+		this.buildIndex();
+		this.buildBody(this.index.indexElements[0].subElements[0]);
+	}
+	
 	buildIndex(){
 		this.index.indexElements = [];
 		let _topicRef: number = 0;

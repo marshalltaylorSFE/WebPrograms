@@ -24,6 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EditorExplorerComponent } from './editor-explorer/editor-explorer.component';
 import { EditorBlogComponent } from './editor-blog/editor-blog.component';
 import { BlogTimelineComponent } from './blog-timeline/blog-timeline.component'
+import { BlogService } from './blog.service';
 
 @Pipe({ name: 'safeHtml'})
 
@@ -58,7 +59,7 @@ export class SafeHtmlPipe implements PipeTransform  {
 	HttpClientModule,
 	FormsModule
   ],
-  providers: [],
+  providers: [BlogService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

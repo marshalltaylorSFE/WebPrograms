@@ -1,1 +1,8 @@
-<app-explorer [tocSrc]="'directory.json'" [editable]="'false'"></app-explorer>
+<table style="width:100%">
+	<tr>
+		<td style="width:60px"><button (click)="loadIndex()">Load</button></td>
+		<td style="width:40px">path:</td>
+		<td><input style="width:100%" [(ngModel)]="newIndex" placeholder="empty"/></td>
+	</tr>
+</table>
+<app-explorer [tocSrc]="sourceIndex" [editable]="true"></app-explorer>
