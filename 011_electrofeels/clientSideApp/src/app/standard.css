@@ -163,6 +163,11 @@ white-space
 	letter-spacing: 0.05em;
 }
 
+:host ::ng-deep >>> .stdInner pre {
+	margin-left: 80px;
+	margin-right: 80px;
+}
+
 
 
 

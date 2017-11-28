@@ -53,10 +53,6 @@
     padding-left: 0 !important;
 }
 
-.debug {
-    border: 3px solid red;
-}
-
 textarea {
 	width: 100%;
     overflow-y: scroll;

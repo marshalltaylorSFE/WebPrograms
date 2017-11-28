@@ -1,1 +1,2031 @@
-{"name":"uCModules.json","topic":"uCModules","sections":[{"section":"Overview","entries":[{"data":["<p>uCModules is a set of libraries for microcontrollers that supplies a number of functions useful for creating small devices that can be interacted with.  It's greatest feature is the ability to deal with large numbers of buttons, LEDs, and knobs without clogging up the main program file.  It also supplies a few other libraries that may or may not be useful depending on architecture.</p>",""],"entry":"Purpose"},{"data":["<h4>Stand-alone libraries:</h4>","<ul>","<li>CircularBuffer.h</li>","<li>flagMessanging.h</li>","<li>timeKeeper.h</li>","<li>timeKeeper32.h</li>","<li>timerModule.h</li>","<li>timerModule32.h</li>","</ul>","","<h4>Panel related libraries:</h4>","<ul>","<li>HardwareInterfaces.h</li>","<li>PanelComponents.h</li>","<li>PanelDataObjects.h</li>","<li>Panel.h</li>","</ul>"],"entry":"Contents"},{"data":["<p>uCModules can be found on github: <a href=\"https://github.com/marshalltaylorSFE/uCModules\">https://github.com/marshalltaylorSFE/uCModules</a></p>","","<p>Clone the repo, or <a href=\"https://github.com/marshalltaylorSFE/uCModules/archive/master.zip\">download as zip</a>, and place in Arduino's workspace libraries folder.</p>"],"entry":"Installation"},{"data":["See examples for usage"],"entry":"Usage"}]},{"section":"Using Panel Components","entries":[{"data":["<p>","<img src=\"assets/explorer-libraries/ClassDiagramsDataObjects.jpg\">","</p>","<p>"," <img src=\"assets/explorer-libraries/ClassDiagramsHardwareDescriptions.jpg\"> ","</p>","<p>"," <img src=\"assets/explorer-libraries/ClassDiagramsPanelComponents.jpg\"> ","</p>","<p>"," <img src=\"assets/explorer-libraries/ClassDiagramsPanels.jpg\"> ","</p>"],"entry":"Class Diagrams"}]},{"section":"CircularBuffer","entries":[{"data":["<p>This is a simple circular buffer.  It is a template for convenience.</p>","","<h3>Usage</h3>","<p>To use, include the header and create an object of the required type, and of the size needed.</p>","<pre>","#include &lt;CircularBuffer.h&gt;","","CircularBuffer<int> cBuffer(10)","</pre>","<p>This creates a global buffer of 10 integers</p>"],"entry":"Overview"},{"data":["<h3>Description</h3>","<p>Construct a buffer object with number of elements</p>","<pre>CircularBuffer<T>( uint8_t inputDepth )</pre>","<h3>Parameters</h3>","<ul>","<li>","<i>uint8_t inputDepth</i> -- set the depth of the buffer.","</li>","</ul>"],"entry":"CircularBuffer<T>(...)"},{"data":["<h3>Description</h3>","<pre>read( uint8_t inputDepth )</pre>","<h3>Parameters</h3>","<ul>","<li>","<i>uint8_t inputDepth</i> -- Read into the buffer some depth.  Reading 0 results in the most recent addition.  Reading too deep will clamp at the oldest element.","</li>","</ul>","<h3>Return</h3>","<ul>","<li>","<i>T</i> -- Returns object of template type.","</li>","</ul>"],"entry":"read(...)"},{"data":["<h3>Description</h3>","<p>Write a new object to the buffer.  If the buffer is full, old data will be deleted.","<pre>void write( T inputData )</pre>","<h3>Parameters</h3>","<ul>","<li>","<i>T inputData</i> -- Pass element to add.","</li>","</ul>","<h3>Return</h3>","<ul>","<li>","<i>void</i>","</li>","</ul>"],"entry":"write(...)"},{"data":["<h3>Description</h3>","<p>Remove all elements from the buffer</p>","<pre>void clear( void )</pre>","<h3>Parameters</h3>","<ul>","<li>","<i>void</i> -- Description","</li>","</ul>","<h3>Return</h3>","<ul>","<li>","<i>void</i>","</li>","</ul>"],"entry":"clear(...)"}]}]}
+{
+  "name": "uCModules.json",
+  "topic": "uCModules",
+  "sections": [
+    {
+      "section": "Overview",
+      "entries": [
+        {
+          "data": [
+            "<p>uCModules is a set of libraries for microcontrollers that supplies a number of functions useful for creating small devices that can be interacted with.  It's greatest feature is the ability to deal with large numbers of buttons, LEDs, and knobs without clogging up the main program file.  It also supplies a few other libraries that may or may not be useful depending on architecture.</p>",
+            ""
+          ],
+          "entry": "Purpose"
+        },
+        {
+          "data": [
+            "<h4>Stand-alone libraries:</h4>",
+            "<ul>",
+            "<li>CircularBuffer.h -- kind of a push only stack with polite overflow.</li>",
+            "<li>flagMessanging.h -- Create edge triggered objects</li>",
+            "<li>timeKeeper.h -- Keep track of counts since reset</li>",
+            "<li>timeKeeper32.h</li>",
+            "<li>timerModule.h -- poor scheduler</li>",
+            "<li>timerModule32.h</li>",
+            "</ul>",
+            "",
+            "<h4>Panel related libraries:</h4>",
+            "<ul>",
+            "<li>HardwareInterfaces.h -- hardware description objects</li>",
+            "<li>PanelComponents.h -- logical control elements for things one might find on a panel</li>",
+            "<li>PanelDataObjects.h -- internal data objects used by the panel system.</li>",
+            "<li>Panel.h -- parent class for container object.</li>",
+            "</ul>"
+          ],
+          "entry": "Contents"
+        },
+        {
+          "data": [
+            "<p>uCModules can be found on github: <a href=\"https://github.com/marshalltaylorSFE/uCModules\">https://github.com/marshalltaylorSFE/uCModules</a></p>",
+            "",
+            "<p>Clone the repo, or <a href=\"https://github.com/marshalltaylorSFE/uCModules/archive/master.zip\">download as zip</a>, and place in Arduino's workspace libraries folder.</p>"
+          ],
+          "entry": "Installation"
+        },
+        {
+          "data": [
+            "See examples for usage"
+          ],
+          "entry": "Usage"
+        }
+      ]
+    },
+    {
+      "section": "Using Panel Components",
+      "entries": [
+        {
+          "data": [
+            "<p>",
+            "<img src=\"assets/explorer-libraries/ClassDiagramsDataObjects.jpg\">",
+            "</p>",
+            "<p>",
+            " <img src=\"assets/explorer-libraries/ClassDiagramsHardwareDescriptions.jpg\"> ",
+            "</p>",
+            "<p>",
+            " <img src=\"assets/explorer-libraries/ClassDiagramsPanelComponents.jpg\"> ",
+            "</p>",
+            "<p>",
+            " <img src=\"assets/explorer-libraries/ClassDiagramsPanels.jpg\"> ",
+            "</p>"
+          ],
+          "entry": "Class Diagrams"
+        }
+      ]
+    },
+    {
+      "section": "CircularBuffer",
+      "entries": [
+        {
+          "data": [
+            "<p>This is a simple circular buffer.  Use for non-class types only.</p>",
+            "",
+            "<h3>Todo:</h3>",
+            "<p>Create object buffer example and debug.</p>",
+            "",
+            "<h3>Usage</h3>",
+            "<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>",
+            "<pre>",
+            "#include &lt;CircularBuffer.h&gt;",
+            "",
+            "CircularBuffer<int> cBuffer(10)",
+            "</pre>",
+            "<center><i>Creates a global buffer of 10 integers.</i></center>"
+          ],
+          "entry": "Overview"
+        },
+        {
+          "data": [
+            "<h3>Description</h3>",
+            "<p>Construct a buffer object with number of elements</p>",
+            "<pre>CircularBuffer<T>( uint8_t inputDepth )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t inputDepth</i> -- set the depth of the buffer.",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": "CircularBuffer<T>(...)"
+        },
+        {
+          "data": [
+            "<h3>Description</h3>",
+            "<p>Use to get an element.  Pass 0 for newest object.  Reading too deep will clamp at the oldest element.",
+            "<h4>Example:</h4>",
+            "<pre>read( uint8_t inputDepth )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t inputDepth</i> -- Read into the buffer some depth.",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>T</i> -- Returns object of template type.",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": "read(...)"
+        },
+        {
+          "data": [
+            "<h3>Description</h3>",
+            "<p>Write a new object to the buffer.  If the buffer is full, old data will be deleted.",
+            "<pre>void write( T inputData )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>T inputData</i> -- Pass element to add.",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": "write(...)"
+        },
+        {
+          "data": [
+            "<h3>Description</h3>",
+            "<p>Remove all elements from the buffer</p>",
+            "<pre>void clear( void )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": "clear(...)"
+        }
+      ]
+    },
+	    {
+      "section": "GenericHardwareDescriptio",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class GenericHardwareDescription</p>"
+          ]
+        },
+        {
+          "entry": ".readHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void readHardware( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".writeHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void writeHardware( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getData(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void getData( DataObject * inputObject ){</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>DataObject * inputObject</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".\t\t\t\t\t\t\t\t\t\t\t\t\tif(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>\t\t\t\t\t\t\t\t\t\t\t\t\tif( sizeof(*inputObject) == sizeof(localData) )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>sizeof(*inputObject</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".\t\t\t\t\tmemcpy(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>\t\t\t\t\tmemcpy( inputObject->data, localData.data, localData.size );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>inputObject->data</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>localData.data</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>localData.size</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setData(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setData( DataObject * inputObject ){</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>DataObject * inputObject</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".\t\t\t\t\t\t\t\t\t\t\tif(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>\t\t\t\t\t\t\t\t\t\t\tif( sizeof(*inputObject) == sizeof(localData) )</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>sizeof(*inputObject</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".\t\t\t\t\tmemcpy(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>\t\t\t\t\tmemcpy( localData.data, inputObject->data, inputObject->size );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>localData.data</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>inputObject->data</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>inputObject->size</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".GenericHardwareDescription(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>GenericHardwareDescription( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ArduinoDigitalIn",
+      "entries": [
+        {
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class ArduinoDigitalIn : public GenericHardwareDescription</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>"
+          ],
+          "entry": "Class Overview"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ArduinoDigitalIn( int inputPin );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputPin</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".ArduinoDigitalIn(...)"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void readHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".readHardware(...)"
+        }
+      ]
+    },
+    {
+      "section": "ArduinoDigitalOut",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class ArduinoDigitalOut : public GenericHardwareDescription</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>"
+          ]
+        },
+        {
+          "entry": ".ArduinoDigitalOut(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ArduinoDigitalOut( int inputPin );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputPin</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".writeHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void writeHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ArduinoAnalogIn",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class ArduinoAnalogIn : public GenericHardwareDescription</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>"
+          ]
+        },
+        {
+          "entry": ".ArduinoAnalogIn(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ArduinoAnalogIn( int inputPin );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputPin</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".readHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void readHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+	    {
+      "section": "ListObjec",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class ListObject</p>"
+          ]
+        },
+        {
+          "entry": ".ListObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ListObject(){</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pane",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Panel</p>"
+          ]
+        },
+        {
+          "entry": ".Panel(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Panel();</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".add(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void add( PanelComponent * inputComp );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>PanelComponent * inputComp</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PanelComponen",
+      "entries": [
+        {
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class PanelComponent</p>"
+          ],
+          "entry": "Class Overview"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>PanelComponent( void ){</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".PanelComponent(...)"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual bool hasFreshData( void ){</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual bool</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".hasFreshData(...)"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".freshen(...)"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>static void freshenStatic( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>static void</i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".freshenStatic(...)"
+        }
+      ]
+    },
+    {
+      "section": "Button",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Button : public PanelComponent</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public PanelComponent</p>"
+          ]
+        },
+        {
+          "entry": ".setHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setHardware( GenericHardwareDescription * input, bool invertInput );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>GenericHardwareDescription * input</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>bool invertInput</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".hasFreshData(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>bool hasFreshData( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>bool</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>buttonState_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>buttonState_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceRisingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceRisingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceFallingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceFallingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceHoldRisingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceHoldRisingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceHoldFallingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceHoldFallingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Led",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Led : public PanelComponent</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public PanelComponent</p>"
+          ]
+        },
+        {
+          "entry": ".Led(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Led( void ) : state(LEDOFF){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setHardware( GenericHardwareDescription * input, bool invertInput );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>GenericHardwareDescription * input</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>bool invertInput</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ledState_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>ledState_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setState( ledState_t );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>ledState_t</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".toggle(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void toggle( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "KnobParentClass",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class KnobParentClass : public PanelComponent</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public PanelComponent</p>"
+          ]
+        },
+        {
+          "entry": ".KnobParentClass(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>KnobParentClass( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void setHardware( GenericHardwareDescription * input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>GenericHardwareDescription * input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".hasFreshData(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual bool hasFreshData( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual bool</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta ){}; \tvirtual bool serviceChanged( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Simple8BitKnob",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Simple8BitKnob : public KnobParentClass</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public KnobParentClass</p>"
+          ]
+        },
+        {
+          "entry": ".Simple8BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Simple8BitKnob( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Simple10BitKnob",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Simple10BitKnob : public KnobParentClass</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public KnobParentClass</p>"
+          ]
+        },
+        {
+          "entry": ".Simple10BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Simple10BitKnob( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setHysteresis(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setHysteresis( uint8_t );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint16_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Complex10BitKnob",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Complex10BitKnob : public KnobParentClass</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public KnobParentClass</p>"
+          ]
+        },
+        {
+          "entry": ".Complex10BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Complex10BitKnob( void ){};</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint16_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getAsUInt8(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t getAsUInt8( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getAsInt16(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>int16_t getAsInt16( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int16_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getAsUInt16(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint16_t getAsUInt16( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getAsFloat(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>float getAsFloat( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>float</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setLowerKnobVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setLowerKnobVal( uint16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setUpperKnobVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setUpperKnobVal( uint16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setLowerFloatVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setLowerFloatVal( float input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>float input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setUpperFloatVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setUpperFloatVal( float input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>float input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setLowerIntVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setLowerIntVal( int16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setUpperIntVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setUpperIntVal( int16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setLowerUIntVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setLowerUIntVal( uint16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setUpperUIntVal(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setUpperUIntVal( uint16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Hysteresis10BitKnob",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Hysteresis10BitKnob : public Complex10BitKnob</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public Complex10BitKnob</p>"
+          ]
+        },
+        {
+          "entry": ".Hysteresis10BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Hysteresis10BitKnob( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setHysteresis(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setHysteresis( uint8_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setSamplesAveraged(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setSamplesAveraged( uint8_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Windowed10BitKnob",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class Windowed10BitKnob : public Complex10BitKnob</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public Complex10BitKnob</p>"
+          ]
+        },
+        {
+          "entry": ".Windowed10BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Windowed10BitKnob( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setWindow(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setWindow( int16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setSamplesAveraged(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setSamplesAveraged( uint8_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "DataObjec",
+      "entries": [
+        {
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class DataObject</p>"
+          ],
+          "entry": "Class Overview"
+        },
+        {
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>DataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ],
+          "entry": ".DataObject(...)"
+        }
+      ]
+    },
+    {
+      "section": "ButtonDataObject",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class ButtonDataObject : public DataObject</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public DataObject</p>"
+          ]
+        },
+        {
+          "entry": ".ButtonDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>ButtonDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".~ButtonDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>~ButtonDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "LedDataObject",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class LedDataObject : public DataObject</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public DataObject</p>"
+          ]
+        },
+        {
+          "entry": ".LedDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>LedDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".~LedDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>~LedDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "KnobDataObject",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class KnobDataObject : public DataObject</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public DataObject</p>"
+          ]
+        },
+        {
+          "entry": ".KnobDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>KnobDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".~KnobDataObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>~KnobDataObject( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".dumpObject(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void dumpObject( DataObject * inputObjectPtr );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>DataObject * inputObjectPtr</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "MessagingFla",
+      "entries": [
+        {
+          "entry": "Class Overview",
+          "data": [
+            "<h3>First line</h3>",
+            "<p>class MessagingFlag</p>"
+          ]
+        },
+        {
+          "entry": ".MessagingFlag(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>MessagingFlag( void ); \tvoid setFlag( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".clearFlag(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void clearFlag( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getFlag(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t getFlag( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceRisingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceRisingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".serviceFallingEdge(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint8_t serviceFallingEdge( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint8_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    }
+  ]
+}

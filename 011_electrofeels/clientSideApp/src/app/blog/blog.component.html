@@ -4,10 +4,12 @@
 	
 	
 	hello-->
-<app-blog-timeline></app-blog-timeline>
+<app-blog-timeline class="row"></app-blog-timeline>
+<div class="haze">
 <div *ngFor="let post of posts">
 	<div><app-blog-entry [blogPost]="post" [editable]="false"></app-blog-entry></div>
-	<hr>
+	<hr class="haze-rule">
+</div>
 </div>
 <!--
 		<svg viewBox="0 0 250 250">

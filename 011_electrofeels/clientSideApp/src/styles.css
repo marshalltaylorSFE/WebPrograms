@@ -14,7 +14,14 @@ html, body {
 }
 
 .haze {
-  background-color: #fafafa;
+  background-color: #f4f4f4;
+}
+
+.haze-rule{
+	width: 98%;
+	color: #cdd6cd;
+	background-color: #cdd6cd;
+	height: 2px;
 }
 
 .fog {
