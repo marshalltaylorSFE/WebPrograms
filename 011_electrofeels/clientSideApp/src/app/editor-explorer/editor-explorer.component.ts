@@ -14,8 +14,19 @@ export class EditorExplorerComponent implements OnInit {
   ngOnInit() {
   }
   
+  loadLibraries() {
+	  this.sourceIndex = "explorer-libraries/libraries.json"
+  }
+
+  loadProjects() {
+	  this.sourceIndex = "explorer-projects/projects.json"
+  }
+
+  loadScratch() {
+	  this.sourceIndex = "explorer-generic/directory.json"
+  }
+
   loadIndex() {
 	  this.sourceIndex = this.newIndex;
   }
-
 }

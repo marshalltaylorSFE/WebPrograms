@@ -1,6 +1,9 @@
 <table style="width:100%">
 	<tr>
-		<td style="width:60px"><button (click)="loadIndex()">Load</button></td>
+		<td  class="btnbar"><button class="btnbar" (click)="loadProjects()">Projects</button></td>
+		<td  class="btnbar"><button class="btnbar" (click)="loadLibraries()">Libraries</button></td>
+		<td  class="btnbar"><button class="btnbar" (click)="loadScratch()">Scratch</button></td>
+		<td  class="btnbar"><button class="btnbar" (click)="loadIndex()">Load:</button></td>
 		<td style="width:40px">path:</td>
 		<td><input style="width:100%" [(ngModel)]="newIndex" placeholder="empty"/></td>
 	</tr>
