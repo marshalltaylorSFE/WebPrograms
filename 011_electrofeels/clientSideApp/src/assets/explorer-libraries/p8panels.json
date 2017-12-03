@@ -1,0 +1,387 @@
+{
+  "name": "p8panels.json",
+  "topic": "Proto-8 Panel Extension",
+  "sections": [
+    {
+      "section": "Overview",
+      "entries": [
+        {
+          "data": [
+            "<p>desc. of features</p>"
+          ],
+          "entry": "Purpose"
+        },
+        {
+          "data": [
+            "<h4>Libraries of a certain type:</h4><ul><li>file1.h -- one line.</li><li>file2.h -- one line.</li><li>file3.h -- one line.</li></ul>"
+          ],
+          "entry": "Contents"
+        },
+        {
+          "data": [
+            "<p>XXX can be found on github: <a href=\"\">link</a></p>",
+            "<p>Clone the repo, or <a href=\"\">download as zip</a>, and place in Arduino's workspace libraries folder.</p>"
+          ],
+          "entry": "Installation"
+        },
+        {
+          "data": [
+            "<p>See examples for usage</p>"
+          ],
+          "entry": "Usage"
+        }
+      ]
+    },
+    {
+      "section": "class Proto8DigitalIn",
+      "entries": [
+        {
+          "entry": "Overview",
+          "data": [
+            "<p>desc.</p><h3>Todo:</h3><p>things</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>",
+            "<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n",
+            "<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n"
+          ]
+        },
+        {
+          "entry": ".Proto8DigitalIn(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Proto8DigitalIn( int inputCol, int inputRow );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputCol</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>int inputRow</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".readHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void readHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "class Proto8DigitalOut",
+      "entries": [
+        {
+          "entry": "Overview",
+          "data": [
+            "<p>desc.</p><h3>Todo:</h3><p>things</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>",
+            "<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n",
+            "<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n"
+          ]
+        },
+        {
+          "entry": ".Proto8DigitalOut(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Proto8DigitalOut( int inputPosition );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputPosition</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".writeHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void writeHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "class Proto8AnalogIn",
+      "entries": [
+        {
+          "entry": "Overview",
+          "data": [
+            "<p>desc.</p><h3>Todo:</h3><p>things</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public GenericHardwareDescription</p>",
+            "<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n",
+            "<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n"
+          ]
+        },
+        {
+          "entry": ".Proto8AnalogIn(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Proto8AnalogIn( int inputNumber );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int inputNumber</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".readHardware(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void readHardware( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "class Selector",
+      "entries": [
+        {
+          "entry": "Overview",
+          "data": [
+            "<p>desc.</p><h3>Todo:</h3><p>things</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public KnobParentClass</p>",
+            "<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n",
+            "<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n"
+          ]
+        },
+        {
+          "entry": ".Selector(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>Selector( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".~Selector(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>~Selector( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".getState(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>uint16_t getState( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".init(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void init( uint16_t, uint16_t, uint8_t);</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>uint16_t</i> -- Description",
+            "</li>",
+            "<li>",
+            "<i>uint8_t</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "class FastWindowed10BitKnob",
+      "entries": [
+        {
+          "entry": "Overview",
+          "data": [
+            "<p>desc.</p><h3>Todo:</h3><p>things</p>",
+            "<h3>Inheritance</h3>",
+            "<p>public Complex10BitKnob</p>",
+            "<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n",
+            "<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n"
+          ]
+        },
+        {
+          "entry": ".FastWindowed10BitKnob(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>FastWindowed10BitKnob( void );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i></i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".freshen(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>virtual void freshen( uint16_t msTickDelta );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>uint16_t msTickDelta</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>virtual void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        },
+        {
+          "entry": ".setWindow(...)",
+          "data": [
+            "<h3>Full Function Definition</h3>",
+            "<pre>void setWindow( int16_t input );</pre>",
+            "<h3>Parameters</h3>",
+            "<ul>",
+            "<li>",
+            "<i>int16_t input</i> -- Description",
+            "</li>",
+            "</ul>",
+            "<h3>Return</h3>",
+            "<ul>",
+            "<li>",
+            "<i>void</i>",
+            "</li>",
+            "</ul>"
+          ]
+        }
+      ]
+    }
+
+  ]
+}

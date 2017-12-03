@@ -79,7 +79,42 @@ export class FileCreatorService {
 		console.log("Found %d classes!", _classStrs.length);
 		console.log(_classStrs);
 		
-		//For each class
+		//Build and push a custom first section
+			_fileSection = new Section;
+			_fileSection.section = "Overview";
+			_fileSection.entries = [];
+			
+			//Create and push entry
+				_fileEntry = new Entry;
+				_fileEntry.entry = "Purpose";
+				_fileEntry.data = [];
+				_fileEntry.data.push("<p>desc. of features</p>");
+			_fileSection.entries.push(_fileEntry);
+	
+			//Create and push entry
+				_fileEntry = new Entry;
+				_fileEntry.entry = "Contents";
+				_fileEntry.data = [];
+				_fileEntry.data.push("<h4>Libraries of a certain type:</h4><ul><li>file1.h -- one line.</li><li>file2.h -- one line.</li><li>file3.h -- one line.</li></ul>");
+			_fileSection.entries.push(_fileEntry);
+
+			//Create and push entry
+				_fileEntry = new Entry;
+				_fileEntry.entry = "Installation";
+				_fileEntry.data = [];
+				_fileEntry.data.push("<p>XXX can be found on github: <a href=\"\">link</a></p>");
+				_fileEntry.data.push("<p>Clone the repo, or <a href=\"\">download as zip</a>, and place in Arduino's workspace libraries folder.</p>");
+			_fileSection.entries.push(_fileEntry);
+
+			//Create and push entry
+				_fileEntry = new Entry;
+				_fileEntry.entry = "Usage";
+				_fileEntry.data = [];
+				_fileEntry.data.push("<p>See examples for usage</p>");
+			_fileSection.entries.push(_fileEntry);
+			
+		_file.sections.push(_fileSection); //put the section in the file
+
 		for( let _classStr of _classStrs ){
 			_fileSection = new Section;
 			_fileSection.section = "Default Name";
@@ -91,16 +126,16 @@ export class FileCreatorService {
 
 			//Get class name
 			_refIndex1 = _firstLine.indexOf(" ", 6); //look for space after class name
+			if(_refIndex1 == -1) _refIndex1 = _firstLine.length;
 			let _className: string = _firstLine.slice(6, _refIndex1);
 			console.log(_className);
-			_fileSection.section = _className;
+			_fileSection.section = "class " + _className;
 			
+			//Create the first section custom
 			_fileEntry = new Entry;
-			_fileEntry.entry = "Class Overview";
+			_fileEntry.entry = "Overview";
 			_fileEntry.data = [];
-			
-			_fileEntry.data.push("<h3>First line</h3>");
-			_fileEntry.data.push("<p>"+_firstLine+"</p>");
+			_fileEntry.data.push("<p>desc.</p><h3>Todo:</h3><p>things</p>");
 			
 			//Get inheritance
 			_refIndex1 = _firstLine.indexOf(":", 6); //look for space after class name
@@ -114,6 +149,10 @@ export class FileCreatorService {
 				_fileEntry.data.push("<h3>Inheritance</h3>");
 				_fileEntry.data.push("<p>"+_classInh+"</p>");
 			}
+			
+			//Usage
+			_fileEntry.data.push("<h3>Usage</h3>\n<p>IncludeCircularBuffer.h and create circular buffer as needed.</p>\n");
+			_fileEntry.data.push("<pre>\n#include &lt;CircularBuffer.h&gt;\n\nCircularBuffer<int> cBuffer(10)\n</pre>\n<center><i>Caption</i></center>\n");
 			
 			_fileSection.entries.push(_fileEntry); //put the entry in the section
 			
@@ -157,7 +196,6 @@ export class FileCreatorService {
 				}
 			}
 			console.log("Destination function list has %d lines.", _dstLines.length);
-			
 			//Create entries for each line
 			for( let line of _dstLines )
 			{

@@ -5,6 +5,11 @@
 	margin: 0;
 }
 
+.intro-2 {
+    background: url("../../assets/Eggplant_square_25.png")no-repeat center center;
+    background-size: 100%;
+}
+
 .title {
 	height: 100px;
 }
@@ -35,7 +40,11 @@
 	font-style: bold;
 }
 
-img {
-    display: block;
-    margin: 0 auto;
+
+
+.jumbotron{
+	background: rgba(226, 220, 232, 0.8); 
+	margin-top: 20px;
+	margin-bottom: 20px;
+	min-height:260px;
 }

@@ -1,7 +1,16 @@
 {
   "paths": [
     {
+      "path": "explorer-libraries/intro.json"
+    },
+    {
       "path": "explorer-libraries/uCModules.json"
+    },
+    {
+      "path": "explorer-libraries/p8hardware.json"
+    },
+    {
+      "path": "explorer-libraries/p8panels.json"
     }
   ]
 }

@@ -1,7 +1,19 @@
 {
   "paths": [
     {
-      "path": "explorer-projects/file.json"
+      "path": "explorer-projects/lantern.json"
+    },
+    {
+      "path": "explorer-projects/proto-8_enclosure.json"
+    },
+    {
+      "path": "explorer-projects/proto-8_pcb.json"
+    },
+    {
+      "path": "explorer-projects/pirate_hat.json"
+    },
+    {
+      "path": "explorer-projects/proto-pedal.json"
     }
   ]
 }
