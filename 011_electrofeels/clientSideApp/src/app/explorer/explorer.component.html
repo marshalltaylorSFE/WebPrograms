@@ -16,7 +16,7 @@
 		</li>
 		<div *ngIf="thing.expanded==true">
 			<div *ngFor="let thing of thing.subElements" class="subitem"> 
-				<li class="clickable" [class.selected]="thing.sectionRef == selectedSection && thing.topicRef == selectedTopic">
+				<li class="clickable item" [class.selected]="thing.sectionRef == selectedSection && thing.topicRef == selectedTopic">
 					<span *ngIf="thing.expandable" (click)="twist(thing); buildBody(thing)" class="item">
 						<img *ngIf="thing.expanded==true" class="list-align" src="../assets/twistyD.png" alt="" height="14" width="14">
 						<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
@@ -26,7 +26,7 @@
 					<span *ngIf="editable" (click)="deleteSection(thing)" class="glyphicon glyphicon-minus" style="font-size:10px;"></span>
 				</li>
 				<div *ngIf="thing.expandable && thing.expanded" class="subsubitem">
-					<li *ngFor="let subthing of thing.subElements" class="item">
+					<li *ngFor="let subthing of thing.subElements" class="item-no-hover">
 					<span class="item">{{subthing.name}}</span>
 					<span *ngIf="editable" (click)="deleteEntry(subthing)" class="glyphicon glyphicon-minus" style="font-size:10px;"></span>
 					</li>

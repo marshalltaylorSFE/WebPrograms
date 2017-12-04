@@ -9,7 +9,7 @@
 	vertical-align: 0px;
 }
 
-.twistylist li:hover {
+.twistylist li.item:hover  {
 	background-color: #c49ae0;
 	border-radius: 4px 0px 0px 4px;
 }
@@ -20,6 +20,11 @@
 }
 
 .twistylist .item {
+  list-style-type: none;
+  padding: 0 0 0 4px;
+}
+
+.twistylist .item-no-hover {
   list-style-type: none;
   padding: 0 0 0 4px;
 }

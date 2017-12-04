@@ -7,10 +7,9 @@ import { ExplorerComponent } from '../explorer/explorer.component';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  constructor() { }
+  constructor(){}
   
   ngOnInit() {
-
   }
 
 }

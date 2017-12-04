@@ -4,6 +4,7 @@ import { FileCreatorService } from '../file-creator.service';
 import { Directory, ExpFile, Section, Entry } from '../explorer-data-types';
 import { Index, IndexElement, Data, DataElement } from '../source-data-types';
 import { ExplorerEntryComponent } from '../explorer-entry/explorer-entry.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-explorer',
@@ -28,37 +29,79 @@ export class ExplorerComponent implements OnInit, OnChanges {
 	selectedTopic: number = 0;
 	selectedSection: number = 0;
 	editing: boolean = false;
+	topicQuery: string;
+	sectionQuery: string;
 
 	constructor( 
 	private explorerService: ExplorerService,
 	private fileCreatorService: FileCreatorService,
 	private applicationRef: ApplicationRef,
-	){}
+    private _activatedRoute: ActivatedRoute,
+	private _router:Router ) {
+      _router.routerState.root.queryParams.subscribe(data => {
+			//console.log('queryParams', data);
+			if(data.topic) this.topicQuery = data.topic;
+			if(data.section) this.sectionQuery = data.section;
+	  });
+      //this._activatedRoute.params.subscribe(params => {
+      //  console.log('params', params);
+      //});
+    }
 
 	async ngOnInit() {
 		this.directory = await this.explorerService.getDirectory(this.tocSrc);
 		//console.log(this.directory);
 
 		this.files = await this.explorerService.getFiles(this.directory);
-		console.log(this.files);
+		//console.log(this.files);
 		
 		this.buildIndex();
 		
-		this.buildBody(this.index.indexElements[0].subElements[0]);
-		//console.log(this.index);
-
 		//this.explorerService.getFiles(this.directory).then(_directory =>
 		//{
 		//	console.log(_directory);
 		//});
-
+		
+		let _notFound: boolean = true;
+		
+		//Decode query params
+		if(this.topicQuery){
+			console.log(this.index);
+			for( let topic of this.index.indexElements ){
+				if( topic.name == this.topicQuery ){
+					//Found topic
+					console.log(topic.topicRef);
+					topic.expanded = true;
+					if(this.sectionQuery){
+						for( let section of topic.subElements ){
+							if( section.name == this.sectionQuery ){
+								//Found section
+								console.log(section.sectionRef);
+								section.expanded = true;
+								this.buildBody(section);
+								_notFound = false;
+							}
+							if( _notFound ) this.buildBody(topic);
+						}
+					} else {
+						this.buildBody(topic);
+						_notFound = false;
+					}
+				}
+			}
+				
+		}
+		
+		if(_notFound) this.buildBody(this.index.indexElements[0].subElements[0]);
+		//console.log(this.index);
 	}
 
+	//I'm not super sure if I need this:
 	async ngOnChanges() {
 		this.directory = await this.explorerService.getDirectory(this.tocSrc);
 		this.files = await this.explorerService.getFiles(this.directory);
 		this.buildIndex();
-		this.buildBody(this.index.indexElements[0].subElements[0]);
+		//this.buildBody(this.index.indexElements[0].subElements[0]);
 	}
 	
 	buildIndex(){
