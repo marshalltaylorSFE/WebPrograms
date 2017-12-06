@@ -9,7 +9,7 @@
 				<img *ngIf="thing.expanded==true" class="list-align" src="../assets/twistyD.png" alt="" height="14" width="14">
 				<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
 			</span>
-			<span (click)="buildBody(thing)">{{thing.name}}</span>
+			<span (click)="twist(thing); buildBody(thing)">{{thing.name}}</span>
 			<span *ngIf="editable" (click)="createNewSection(thing)" class="glyphicon glyphicon-plus" style="font-size:10px;"></span>
 			<span *ngIf="editable" (click)="deleteFile(thing)" class="glyphicon glyphicon-minus" style="font-size:10px;"></span>
 			<span *ngIf="editable" (click)="downloadFile(thing)" class="glyphicon glyphicon-floppy-disk" style="font-size:12px;"></span>
@@ -21,7 +21,7 @@
 						<img *ngIf="thing.expanded==true" class="list-align" src="../assets/twistyD.png" alt="" height="14" width="14">
 						<img *ngIf="thing.expanded==false" class="list-align" src="../assets/twistyR.png" alt="" height="14" width="14">
 					</span>
-					<span (click)="buildBody(thing)" class="item">{{thing.name}}</span>
+					<span (click)="twist(thing); buildBody(thing)" class="item">{{thing.name}}</span>
 					<span *ngIf="editable" (click)="createNewEntry(thing)" class="glyphicon glyphicon-plus" style="font-size:10px;"></span>
 					<span *ngIf="editable" (click)="deleteSection(thing)" class="glyphicon glyphicon-minus" style="font-size:10px;"></span>
 				</li>
